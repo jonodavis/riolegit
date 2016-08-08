@@ -9,6 +9,7 @@ def index(request):
     sorted_countries = sorted(countries, key=lambda x: (-x.gold_medals.count(), -x.silver_medals.count(),
                                                         -x.bronze_medals.count()))
     viewmodel = [{'name': x.name,
+                  'is_russia': x.is_russia(),
                   'gold_medals': x.gold_count(False),
                   'silver_medals': x.silver_count(False),
                   'bronze_medals': x.bronze_count(False),

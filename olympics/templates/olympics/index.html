@@ -7,91 +7,109 @@
 
 <head>
 
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Put Original Funny Meme Title Here</title>
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <!-- Custom CSS -->
     <link href="{% static 'style.css' %}" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato|Lobster|Open+Sans" rel="stylesheet">
 
 </head>
 
 <body>
-    <script src="{% static 'jquery-3.1.0.min.js' %}"></script>
-    <script src="{% static 'site.js' %}"></script>
-	<!-- Header -->
-    <header class="header">
-        <div class="mainTitle">
-            <h1><a href="index.html">Riolegit</a></h1>
-        </div>
-        <div class="subTitle">
-        	<h3>No Russians = Real Results</h3>
-        </div>
-    </header>
+<script src="{% static 'jquery-3.1.0.min.js' %}"></script>
+<script src="{% static 'site.js' %}"></script>
+<!-- Header -->
+<header class="header">
+    <div class="mainTitle">
+        <h1><a href="index.html">Riolegit</a></h1>
+    </div>
+    <div class="subTitle">
+        <h3>No Russians = Real Results</h3>
+    </div>
+</header>
 
-    <!-- Search Bar -->
-    <div class="box">
-  		<div class="container-1">
-      		<span class="icon"><i class="fa fa-search"></i></span>
-      		<input type="search" id="search" placeholder="Looking for individual sport results?" />
-  		</div>
-	</div>
+<!-- Search Bar -->
+<div class="box">
+    <div class="container-1">
+        <span class="icon"><i class="fa fa-search"></i></span>
+        <input type="search" id="search" placeholder="Looking for individual sport results?"/>
+    </div>
+</div>
 
-	<!-- Toggle Switch -->
-	<div class="onoffswitch">
-    	<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
-    	<label class="onoffswitch-label" for="myonoffswitch">
+<!-- Toggle Switch -->
+<div class="onoffswitch">
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
+    <label class="onoffswitch-label" for="myonoffswitch">
         <span class="onoffswitch-inner"></span>
         <span class="onoffswitch-switch"></span>
-    	</label>
-	</div>
+    </label>
+</div>
 
-	<!-- Medal Table -->
-	<table class="container">
-		<thead>
-			<tr>
-				<th><h1>#</h1></th>
-				<th><h1>Country</h1></th>
-				<th><h1>Gold</h1></th>
-				<th><h1>Silver</h1></th>
-				<th><h1>Bronze</h1></th>
-				<th><h1>Total</h1></th>
-			</tr>
-		</thead>
-		<tbody>
-        {% for country in countries %}
-			<tr>
-				<td>{{ forloop.counter }}</td>
-				<td>{{ country.name }}</td>
-				<td>
+<!-- Medal Table -->
+<table class="container">
+    <thead>
+    <tr>
+        <th><h1>#</h1></th>
+        <th><h1>Country</h1></th>
+        <th><h1>Gold</h1></th>
+        <th><h1>Silver</h1></th>
+        <th><h1>Bronze</h1></th>
+        <th><h1>Total</h1></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for country in countries %}
+        <tr {% if country.is_russia %}class="russia"{% endif %}>
+            <td class="number">{{ forloop.counter }}</td>
+            <td>{{ country.name }}</td>
+            <td>
+                {% if country.gold_medals != country.gold_no_russia %}
                     <span class="result with-russia">{{ country.gold_medals }}</span>
                     <span class="result without-russia">{{ country.gold_no_russia }}</span>
-                </td>
-				<td>
+                {% else %}
+                    {{ country.gold_medals }}
+                {% endif %}
+            </td>
+            <td>
+                {% if country.silver_medals != country.silver_no_russia %}
                     <span class="result with-russia">{{ country.silver_medals }}</span>
                     <span class="result without-russia">{{ country.silver_no_russia }}</span>
-                </td>
-				<td>
+                {% else %}
+                    {{ country.silver_medals }}
+                {% endif %}
+            </td>
+            <td>
+                {% if country.bronze_medals != country.bronze_no_russia %}
                     <span class="result with-russia">{{ country.bronze_medals }}</span>
                     <span class="result without-russia">{{ country.bronze_no_russia }}</span>
-                </td>
-				<td>
+                {% else %}
+                    {{ country.bronze_medals }}
+                {% endif %}
+            </td>
+            <td>
+                {% if country.total_medals != country.total_no_russia %}
                     <span class="result with-russia">{{ country.total_medals }}</span>
                     <span class="result without-russia">{{ country.total_no_russia }}</span>
-                </td>
-			</tr>
-        {% endfor %}
-		</tbody>
-	</table>
+                {% else %}
+                    {{ country.total_medals }}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 </body>
 
 </html>
