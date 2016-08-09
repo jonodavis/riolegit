@@ -18,14 +18,15 @@ $(function () {
             });
         } else {
             if ($russia.hasClass('struck-through')) {
-                $russia.removeClass('struck-through');
                 numbersBelow.each(function () {
                     var $this = $(this);
                     $this.html(parseInt($this.html()) + 1);
                 });
             }
             $('.result.without-russia').slideUp(function () {
-                $('.result.with-russia').slideDown();
+                $('.result.with-russia').slideDown(function() {
+                    $russia.removeClass('struck-through');
+                });
             });
         }
     });
