@@ -251,3 +251,15 @@ em {
     font-style: italic;
     background-color: #464A52 !important;
 }
+
+#a {
+    position: fixed;
+    left: 3px;
+    top: 3px;
+}
+
+#b {
+    position: fixed;
+    right: 3px;
+    top: 3px;
+}
