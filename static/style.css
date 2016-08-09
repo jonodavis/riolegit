@@ -13,6 +13,29 @@ a:hover {
 	text-decoration: none;
 }
 
+footer {
+  text-align: center;
+  margin-top: 60px;
+}
+
+hr .small {
+  max-width: 100px;
+}
+
+.made-in-nz {
+  color: #FB667A;
+  margin-top: 60px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+em {
+  color: #FB667A;
+  font-style: normal;
+}
+
 .header {
 	color: #FFFFFF;
 	text-align: center;
