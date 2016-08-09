@@ -27,14 +27,14 @@ def get_results():
                 continue
 
             if 'gold' in first_medal['class']:
-                gold_winner = find_country(str(rows[0].find('td', class_='team').text))
-                silver_winner = find_country(str(rows[1].find('td', class_='team').text))
+                gold_winner = find_country(str(rows[0].find('img', class_='team-logo')['src']))
+                silver_winner = find_country(str(rows[1].find('img', class_='team-logo')['src']))
                 bronze_winner = None
                 fourth_place = None
                 if len(rows) > 2:
-                    bronze_winner = find_country(str(rows[2].find('td', class_='team').text))
+                    bronze_winner = find_country(str(rows[2].find('img', class_='team-logo')['src']))
                 if len(rows) > 3:
-                    fourth_place = find_country(str(rows[3].find('td', class_='team').text))
+                    fourth_place = find_country(str(rows[3].find('img', class_='team-logo')['src']))
 
                 try:
                     model = models.Event.objects.get(name=event_name, discipline=discipline)
@@ -52,8 +52,8 @@ def get_results():
                          'Unknown' if fourth_place is None else fourth_place.name))
                 model.save()
             elif 'bronze' in first_medal['class']:
-                bronze_winner = find_country(str(rows[0].find('td', class_='team').text))
-                fourth_place = find_country(str(rows[1].find('td', class_='team').text))
+                bronze_winner = find_country(str(rows[0].find('img', class_='team-logo')['src']))
+                fourth_place = find_country(str(rows[1].find('img', class_='team-logo')['src']))
                 try:
                     model = models.Event.objects.get(name=event_name, discipline=discipline)
                 except ObjectDoesNotExist:
@@ -68,7 +68,8 @@ def get_results():
                 model.save()
 
 
-def find_country(code: str):
+def find_country(img: str):
+    code = img[-12:-9]
     return models.Country.objects.get_or_create(code=code)[0]
 
 
